@@ -1,6 +1,6 @@
 # Content
-
-lab3 - #Init commit && start template page
+- lab2 - Execution of tasks
+- lab3 - #Init commit && start template page
 
 
 ## Technologies
