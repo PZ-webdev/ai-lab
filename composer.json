@@ -1,5 +1,6 @@
 {
     "require": {
-        "twig/twig": "^3.0"
+        "ramsey/uuid": "^4.2",
+        "fleshgrinder/comparable": "^0.1.0"
     }
 }
