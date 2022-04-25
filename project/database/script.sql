@@ -71,7 +71,7 @@ INSERT INTO countries VALUES
     (3, 'Holandia', 'NL', 'Euro', 41850, 'Holenderski'),
     (4, 'Turcja', 'TUR', 'Lira turecka', 783562, 'Turecki'),
     (5, 'Chiny', 'CH', 'Renminbi ', 9596960 , 'Chiński'),
-    (6, 'Stany Zjednoczone', 'USA', 'Dolar ametykańki', 9833520 , 'Angielski'),
+    (6, 'Stany Zjednoczone', 'USA', 'Dolar Amerykański', 9833520 , 'Angielski'),
     (7, 'Austria', 'UT', 'Euro', 83871, 'Angielski');
 
 INSERT INTO trips VALUES 
