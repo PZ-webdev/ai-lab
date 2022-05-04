@@ -5,6 +5,7 @@
 - lab5 - Base operations with the use of PDO
 - lab6 - Init Laravel freamwork && expanding the database of trips
 - lab7 - Adding table and seeder migrations && operations on data from the database
+- lab8 - Adding CRUD to Tours and Countries
 
 ## Technologies
 - [PHP v8.0](https://www.php.net/releases/8.0/en.php)

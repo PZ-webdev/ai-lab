@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('trips', function ($table) {
-            $table->string("img_name")->after('price');
+            $table->string("img_name")->nullable()->after('price');
         });
     }
 
