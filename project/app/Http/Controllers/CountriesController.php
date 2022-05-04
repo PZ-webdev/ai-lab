@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCountryRequest;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CountriesController extends Controller
@@ -13,7 +15,9 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        //
+        $countries = Country::all();
+
+        return view('countries.index', compact('countries'));
     }
 
     /**
@@ -23,7 +27,7 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('countries.create');
     }
 
     /**
@@ -32,9 +36,11 @@ class CountriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCountryRequest $request)
     {
-        //
+        Country::create($request->all());
+
+        return redirect()->route('country.index');
     }
 
     /**
@@ -45,7 +51,9 @@ class CountriesController extends Controller
      */
     public function show($id)
     {
-        //
+        $country = Country::findOrFail($id);
+
+        return view('countries.show', compact('country'));
     }
 
     /**
@@ -56,7 +64,9 @@ class CountriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $country = Country::findOrFail($id);
+
+        return view('countries.edit', compact('country'));
     }
 
     /**
@@ -68,7 +78,10 @@ class CountriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $country = Country::findOrFail($id);
+        $country->update($request->all());
+
+        return redirect()->route('country.index');
     }
 
     /**
@@ -79,6 +92,8 @@ class CountriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Country::destroy($id);
+
+        return redirect()->route('country.index');
     }
 }
