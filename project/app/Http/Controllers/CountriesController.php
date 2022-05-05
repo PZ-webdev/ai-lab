@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCountryRequest;
 use App\Models\Country;
+use Exception;
 use Illuminate\Http\Request;
 
 class CountriesController extends Controller
@@ -92,7 +93,11 @@ class CountriesController extends Controller
      */
     public function destroy($id)
     {
-        Country::destroy($id);
+        try {
+            Country::destroy($id);
+        } catch (\Exception $e) {
+            return redirect()->route('country.index')->with('error', 'Nie można usunąć tego kraju, gdyż jest on użyty w wycieczce');
+        }
 
         return redirect()->route('country.index');
     }
