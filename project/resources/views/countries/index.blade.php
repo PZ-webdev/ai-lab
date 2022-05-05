@@ -9,6 +9,9 @@
         <div class="row">
             <a href="{{ route('country.create') }}" class="link">Dodaj nowy kraj</a>
         </div>
+        @if (Session::has('error'))
+            <p class="alert alert-danger">{{ Session::get('error') }}</p>
+        @endif
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
@@ -24,8 +27,9 @@
             <tbody>
                 @forelse ($countries as $country)
                     <tr>
-                        <th scope="row"><th href="{{ route('country.show', $country) }}"
-                                class="link text-dark">{{ $country->id }}</a></th>
+                        <th scope="row">
+                        <th href="{{ route('country.show', $country) }}" class="link text-dark">{{ $country->id }}</a>
+                        </th>
                         <td>{{ $country->name }}</td>
                         <td>{{ $country->code }}</td>
                         <td>{{ $country->currency }}</td>

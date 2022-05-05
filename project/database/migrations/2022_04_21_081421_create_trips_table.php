@@ -17,9 +17,10 @@ return new class extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_country');
-            $table->foreign('id_country')->references('id')->on('countries')->onDelete('cascade')->onUpdate('cascade');
-                                                                            //->onDelete('SET NULL')->onUpdate('SET NULL'); 
-                                                                            // also available CASCADE, RESTRICT, DO NOTHING, NO ACTION
+            $table->foreign('id_country')->references('id')->on('countries');
+            // ->onDelete('cascade')->onUpdate('cascade');
+            //->onDelete('SET NULL')->onUpdate('SET NULL'); 
+            // also available CASCADE, RESTRICT, DO NOTHING, NO ACTION
             // $table->foreignIdFor(Country::class)->constrained();
             $table->string('name');
             $table->string('continent');
