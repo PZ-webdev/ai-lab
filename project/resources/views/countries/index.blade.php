@@ -35,17 +35,19 @@
                         <td>{{ $country->currency }}</td>
                         <td>{{ $country->area }} km²</td>
                         <td>{{ $country->language }}</td>
-                        <td>
-                            <a href="{{ route('country.edit', $country) }}" class="btn btn-sm btn-warning">Edytuj</a>
-                        </td>
-                        <td>
-                            <form method="POST" action="{{ route('country.destroy', $country) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="confirm('Czy na pewno chcesz usunać kraj z dostępnymi wycieczkami w tym kraju?');">Usuń</button>
-                            </form>
-                        </td>
+                        @can('is-admin', $country)
+                            <td>
+                                <a href="{{ route('country.edit', $country) }}" class="btn btn-sm btn-warning">Edytuj</a>
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ route('country.destroy', $country) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="confirm('Czy na pewno chcesz usunać kraj z dostępnymi wycieczkami w tym kraju?');">Usuń</button>
+                                </form>
+                            </td>
+                        @endcan
                     </tr>
                 @empty
                     <tr>
