@@ -43,17 +43,19 @@
                         <td>{{ $trip->country->name }}</td>
                         <td>{{ $trip->period }} dni</td>
                         <td>{{ $trip->price }} zł</td>
-                        <td>
-                            <a href="{{ route('trips.edit', $trip) }}" class="btn btn-sm btn-warning">Edytuj</a>
-                        </td>
-                        <td>
-                            <form method="POST" action="{{ route('trips.destroy', $trip) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger"
-                                    onclick="confirm('Czy na pewno chcesz usunać wycieczkę?');">Usuń</button>
-                            </form>
-                        </td>
+                        @can('is-admin', $trip)
+                            <td>
+                                <a href="{{ route('trips.edit', $trip) }}" class="btn btn-sm btn-warning">Edytuj</a>
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ route('trips.destroy', $trip) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="confirm('Czy na pewno chcesz usunać wycieczkę?');">Usuń</button>
+                                </form>
+                            </td>
+                        @endcan
                     </tr>
                 @empty
                     <p>Brak wycieczek</p>

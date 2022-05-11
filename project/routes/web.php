@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TripsController;
 use App\Models\Trip;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::get('/', function(){
     return redirect()->route('trips.index');
 });
@@ -29,7 +35,7 @@ Route::get('/trip_test', function () {
 });
 
 Route::resource('trips', TripsController::class);
-Route::resource('country', CountriesController::class);
+Route::resource('country', CountriesController::class)->middleware('auth');
 
 // Route::controller(CountriesController::class)->group(function () {
 //     Route::get('/country', 'index');
