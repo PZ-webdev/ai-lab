@@ -1,0 +1,58 @@
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+# https://www.postman.com/downloads/
+# https://httpstatuses.com/
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+# https://pl.wikipedia.org/wiki/JSON
+# https://bykowski.pl/wp-content/uploads/2017/10/efektywne-rest-api.jpg
+
+###
+GET http://127.0.0.1:8000/api/countries
+Accept: application/json
+
+###
+OPTIONS http://127.0.0.1:8000/api/countries
+
+###
+OPTIONS http://127.0.0.1:8000/api/countries/1
+
+###
+GET http://127.0.0.1:8000/api/countries/1
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/trips
+Accept: application/json
+
+###
+GET http://127.0.0.1:8000/api/trips/1
+Accept: application/json
+
+###
+POST http://127.0.0.1:8000/api/countries
+Accept: application/json
+content-type: application/json
+
+{
+    "name": "Republika Madagaskaru",
+    "code": "MG",
+    "currency": "ariary",
+    "area": 587041,
+    "language": "malgaski"
+}
+
+###
+PUT http://127.0.0.1:8000/api/countries/13
+Accept: application/json
+content-type: application/json
+
+{
+    "name": "Madagascar",
+    "code": "MG",
+    "currency": "ariary",
+    "area": 587041,
+    "language": "francuski"
+}
+
+###
+DELETE http://127.0.0.1:8000/api/countries/13
+Accept: application/json
