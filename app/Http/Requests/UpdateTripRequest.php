@@ -24,11 +24,11 @@ class UpdateTripRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:trips,name,'.$this->trip->id,
+            'name' => 'required|unique:trips,name,' . $this->trip->id,
             'continent' => 'required',
             'period' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
-            'country_id' => 'required',
+            'country_id' => 'sometimes|required',
         ];
     }
 }

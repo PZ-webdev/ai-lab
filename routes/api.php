@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('countries', CountryController::class);
 Route::apiResource('trips', TripController::class);
+Route::post('trips/bulk', [TripController::class, 'bulkStore']);

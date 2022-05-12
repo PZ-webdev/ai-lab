@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
+use App\Http\Resources\CountryCollection;
+use App\Http\Resources\CountryResource;
+use Exception;
 
 class CountryController extends Controller
 {
@@ -15,17 +18,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // return new CountryCollection(Country::all());
+        // return new CountryCollection(Country::with('trips')->get());
+        return new CountryCollection(Country::paginate(3));
     }
 
     /**
@@ -36,7 +31,7 @@ class CountryController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
-        //
+        return new CountryResource(Country::create($request->all()));
     }
 
     /**
@@ -47,18 +42,8 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Country $country)
-    {
-        //
+        // return new CountryResource($country);
+        return new CountryResource($country->loadMissing('trips'));
     }
 
     /**
@@ -70,7 +55,9 @@ class CountryController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        //
+        $country->update($request->all());
+        $country = $country->refresh();
+        return new CountryResource($country);
     }
 
     /**
@@ -81,6 +68,12 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        try {
+            $country->delete();
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Nie można usunąć kraju ponieważ jest ona używana'
+            ], 200);
+        }
     }
 }

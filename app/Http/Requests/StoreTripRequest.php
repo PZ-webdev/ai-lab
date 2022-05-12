@@ -24,11 +24,11 @@ class StoreTripRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:trips,name,',
-            'continent' => 'required',
-            'period' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
-            'country_id' => 'required',
+            '*.name' => 'required|unique:trips,name,',
+            '*.continent' => 'required',
+            '*.period' => 'required|integer|min:0',
+            '*.price' => 'required|numeric|min:0',
+            '*.country_id' => 'required',
         ];
     }
 }
