@@ -21,8 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('countries', CountryController::class)->middleware('auth:sanctum');
-Route::apiResource('trips', TripController::class)->middleware('auth:sanctum');
-Route::post('trips/bulk', [TripController::class, 'bulkStore'])->middleware('auth:sanctum');
-Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::apiResource('countries', CountryController::class);
+Route::apiResource('trips', TripController::class);
+Route::post('trips/bulk', [TripController::class, 'bulkStore']);
+
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+    });

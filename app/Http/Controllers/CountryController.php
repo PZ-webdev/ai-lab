@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Http\Request;
 use App\Http\Requests\StoreCountryRequest;
 use App\Http\Requests\UpdateCountryRequest;
 use App\Http\Resources\CountryCollection;
 use App\Http\Resources\CountryResource;
-use Exception;
 
 class CountryController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->authorizeResource(Country::class, 'country');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +18,9 @@ class CountryController extends Controller
      */
     public function index()
     {
-        // return new CountryCollection(Country::all());
-        // return new CountryCollection(Country::with('trips')->get());
-        return new CountryCollection(Country::paginate(3));
+        //return new CountryCollection(Country::paginate(3));
+        return new CountryCollection(Country::with('trips')->paginate(3));
+        //return new CountryCollection(Country::with('trips')->get());
     }
 
     /**
@@ -48,7 +42,6 @@ class CountryController extends Controller
      */
     public function show(Country $country)
     {
-        // return new CountryResource($country);
         return new CountryResource($country->loadMissing('trips'));
     }
 
@@ -74,12 +67,9 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        try {
-            $country->delete();
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Nie można usunąć kraju ponieważ jest ona używana'
-            ], 200);
+        if ($country->trips()->count()){
+            abort(400, "Nie można usunąć kraju, w którym odbywają się wycieczki!");
         }
+        $country->delete();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateTripRequest extends FormRequest
 {
@@ -23,12 +24,20 @@ class UpdateTripRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|unique:trips,name,' . $this->trip->id,
+        $rules = [
+            'name' => 'required|unique:trips,name,'.$this->trip->id,
             'continent' => 'required',
             'period' => 'required|integer|min:0',
             'price' => 'required|numeric|min:0',
-            'country_id' => 'sometimes|required',
+            'country_id' => 'required',
         ];
+
+        if($this->method() == 'PATCH'){
+            foreach ($rules as $key => $value) {
+                $rules[$key] = "sometimes|{$value}";
+            }
+        }
+
+        return $rules;
     }
 }

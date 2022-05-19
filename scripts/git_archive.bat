@@ -3,12 +3,12 @@ git init
 git config --local user.name "student"
 git config --local user.email "student@ur.edu.pl"
 git add --all
-git commit -m "Lab010"
-git archive --format=zip HEAD -o ../Lab010_12-05-2022.zip
+git commit -m "Lab011"
+git archive --format=zip HEAD -o ../Lab011_19-05-2022.zip
 REM Dodać plik .env do archiwum
 
 REM W domu:
-REM Wypakować Lab010_12-05-2022.zip do folderu Lab010
+REM Wypakować Lab011_19-05-2022.zip do folderu Lab011
 cd Lab010
 composer install --no-interaction
 php artisan storage:link
