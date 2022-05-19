@@ -69,6 +69,10 @@ class TripController extends Controller
      */
     public function update(UpdateTripRequest $request, Trip $trip)
     {
+        if (!$request->user()->tokenCan('update')) {
+            abort(403);
+        }
+
         $trip->update($request->all());
         $trip = $trip->refresh();
         return new TripResource($trip);

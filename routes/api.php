@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
@@ -20,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('countries', CountryController::class);
-Route::apiResource('trips', TripController::class);
-Route::post('trips/bulk', [TripController::class, 'bulkStore']);
+Route::apiResource('countries', CountryController::class)->middleware('auth:sanctum');
+Route::apiResource('trips', TripController::class)->middleware('auth:sanctum');
+Route::post('trips/bulk', [TripController::class, 'bulkStore'])->middleware('auth:sanctum');
+Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

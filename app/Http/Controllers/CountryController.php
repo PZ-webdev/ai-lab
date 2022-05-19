@@ -11,6 +11,12 @@ use Exception;
 
 class CountryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Country::class, 'country');
+    }
+
     /**
      * Display a listing of the resource.
      *
