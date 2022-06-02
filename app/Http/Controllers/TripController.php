@@ -18,7 +18,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        return new TripCollection(Trip::all());
+        return new TripCollection(Trip:all());
     }
 
     /**
